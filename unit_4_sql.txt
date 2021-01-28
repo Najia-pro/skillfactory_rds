@@ -94,23 +94,23 @@ WHERE passenger_id = '4313 788533'
 1.
 SELECT count(flight_id)
 FROM dst_project.flights_v
-WHERE arrival_city = 'Анапа'
+WHERE arrival_city = 'ГЂГ­Г ГЇГ '
   AND actual_arrival_local BETWEEN '2017/01/01'::date AND '2017/12/31'::date
 2.
 SELECT count(flight_id)
 FROM dst_project.flights_v
-WHERE departure_city = 'Анапа'
+WHERE departure_city = 'ГЂГ­Г ГЇГ '
   AND actual_departure_local BETWEEN '2017/01/01'::date AND '2017/03/01'::date
 3.
 SELECT count(flight_id)
 FROM dst_project.flights_v
-WHERE departure_city = 'Анапа'
+WHERE departure_city = 'ГЂГ­Г ГЇГ '
   AND status = 'Cancelled'
 4.
 SELECT count(DISTINCT flight_id)
 FROM dst_project.flights_v
-WHERE departure_city = 'Анапа'
-  AND arrival_city != 'Москва'
+WHERE departure_city = 'ГЂГ­Г ГЇГ '
+  AND arrival_city != 'ГЊГ®Г±ГЄГўГ '
 5. 
 WITH air AS
   (SELECT s.aircraft_code,
@@ -129,7 +129,7 @@ WHERE f.arrival_airport = 'AAQ'
 Final SQL 
 
 WITH t AS
-  (--стоимость проданных билетов по рейсам
+  (--СЃС‚РѕРёРјРѕСЃС‚СЊ РїСЂРѕРґР°РЅРЅС‹С… Р±РёР»РµС‚РѕРІ
 SELECT flight_id,
        sum(amount) sum_tickets,
        count(ticket_no) count_tickets,
@@ -137,13 +137,13 @@ SELECT flight_id,
    FROM dst_project.ticket_flights
    GROUP BY 1),
      a AS
-  (--характеристики самолета по количеству мест
+  (--С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё СЃР°РјРѕР»РµС‚Р° РїРѕ РєРѕР»РёС‡РµСЃС‚Сѓ РјРµСЃС‚
 SELECT aircraft_code,
        count(seat_no) seats_all
    FROM dst_project.seats
    GROUP BY 1),
      b AS
-  (--расчет длительности полетов в минутах)
+  (--СЂР°СЃС‡РµС‚ РґР»РёС‚РµР»СЊРЅРѕСЃС‚Рё РїРѕР»РµС‚РѕРІ РІ РјРёРЅСѓС‚Р°С…
 SELECT f.flight_id,
        f.scheduled_arrival - f.scheduled_departure AS time_fly
    FROM dst_project.flights f)
